@@ -49,14 +49,14 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.top_rated) {
             Highest_Rated_fragment fragment=new Highest_Rated_fragment();
             getSupportFragmentManager().beginTransaction().replace(R.id.mainActivity_framelayout,fragment).commit();
-
+            setTitle("Highest Rated Movies");
             return true;
         }
 
         else if(id == R.id.popular){
             Popular_Movies_fragment fragment=new Popular_Movies_fragment();
             getSupportFragmentManager().beginTransaction().replace(R.id.mainActivity_framelayout,fragment).commit();
-
+            setTitle("Popular Movies");
 
         }
 

@@ -40,6 +40,7 @@ public class DetailActivity extends AppCompatActivity {
         rating.setText("Movie Rating \n"+movie.getRating());
         overview.setText(movie.getDescription());
         release.setText("Release Date\n"+movie.getReleaseDate());
+        setTitle(movie.getTitle());
 
         Picasso.with(this)
                 .load(baseUrl+posterpath+"?api_key=52a1dc564a183650a3b560723582b6f6")
