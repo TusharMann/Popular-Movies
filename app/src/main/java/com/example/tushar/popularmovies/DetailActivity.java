@@ -36,10 +36,10 @@ public class DetailActivity extends AppCompatActivity {
         Movie movie=(Movie)i.getSerializableExtra("movie object");
         String posterpath=movie.getPosterPath();
 
-        name.setText(movie.getTitle());
-        rating.setText(movie.getRating());
+        name.setText("Movie Title\n"+movie.getTitle());
+        rating.setText("Movie Rating \n"+movie.getRating());
         overview.setText(movie.getDescription());
-        release.setText(movie.getReleaseDate());
+        release.setText("Release Date\n"+movie.getReleaseDate());
 
         Picasso.with(this)
                 .load(baseUrl+posterpath+"?api_key=52a1dc564a183650a3b560723582b6f6")

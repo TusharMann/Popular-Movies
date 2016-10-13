@@ -46,8 +46,18 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.top_rated) {
+            Highest_Rated_fragment fragment=new Highest_Rated_fragment();
+            getSupportFragmentManager().beginTransaction().replace(R.id.mainActivity_framelayout,fragment).commit();
+
             return true;
+        }
+
+        else if(id == R.id.popular){
+            Popular_Movies_fragment fragment=new Popular_Movies_fragment();
+            getSupportFragmentManager().beginTransaction().replace(R.id.mainActivity_framelayout,fragment).commit();
+
+
         }
 
         return super.onOptionsItemSelected(item);

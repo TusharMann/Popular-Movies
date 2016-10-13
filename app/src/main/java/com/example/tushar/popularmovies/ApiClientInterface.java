@@ -11,4 +11,8 @@ public interface ApiClientInterface {
     @GET("movie/popular?api_key=52a1dc564a183650a3b560723582b6f6")
     Call<MovieJsonObject> getPopularMovies();
 
+    @GET("movie/top_rated?api_key=52a1dc564a183650a3b560723582b6f6")
+    Call<MovieJsonObject> getTopRated();
+
+
 }

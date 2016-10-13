@@ -1,8 +1,9 @@
 <resources>
     <string name="app_name">Popular Movies</string>
-    <string name="action_settings">Settings</string>
-
+    <string name="action_top_rated">Top Rated Movies</string>
+    <string name="action_popular">Popular Movies</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_detail">DetailActivity</string>
+    <string name="movie_description">Movie Description</string>
 </resources>
