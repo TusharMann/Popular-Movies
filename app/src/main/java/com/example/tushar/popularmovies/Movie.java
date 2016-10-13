@@ -15,7 +15,7 @@ public class Movie implements Serializable {
     @SerializedName("overview")
     private String description;
     @SerializedName("vote_average")
-    private float rating;
+    private String rating;
     @SerializedName("poster_path")
     private String posterPath;
 
@@ -35,11 +35,11 @@ public class Movie implements Serializable {
         this.id = id;
     }
 
-    public float getRating() {
+    public String getRating() {
         return rating;
     }
 
-    public void setRating(float rating) {
+    public void setRating(String rating) {
         this.rating = rating;
     }
 

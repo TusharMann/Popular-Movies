@@ -1,6 +1,7 @@
 package com.example.tushar.popularmovies;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -44,6 +45,10 @@ public class Popular_Movies_fragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
+                Intent intent = new Intent();
+                intent.setClass(getActivity(), DetailActivity.class);
+                intent.putExtra("movie object",movieList.get(i));
+                startActivity(intent);
             }
         });
 
