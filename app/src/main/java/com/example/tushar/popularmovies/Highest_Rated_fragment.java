@@ -69,18 +69,11 @@ public class Highest_Rated_fragment extends Fragment {
             }
             @Override
             public void onFailure(Call<MovieJsonObject> call, Throwable t) {
-                Toast.makeText(getActivity(), "Check your internet connection", Toast.LENGTH_LONG);
+                Toast.makeText(getActivity(), "Check your internet connection", Toast.LENGTH_LONG).show();
 
             }
         });
 
-
-
-
-
-
-    return view;
+        return view;
     }
-
-
 }
