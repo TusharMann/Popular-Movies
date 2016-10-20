@@ -78,7 +78,7 @@ public class DetailActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.share) {
-
+            startActivity(createMovieShareIntent());
             return true;
         }
 
