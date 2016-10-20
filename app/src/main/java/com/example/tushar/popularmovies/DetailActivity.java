@@ -2,8 +2,12 @@ package com.example.tushar.popularmovies;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,6 +18,7 @@ public class DetailActivity extends AppCompatActivity {
     TextView name,rating,overview,release;
     ImageView icon;
     String baseUrl = "http://image.tmdb.org/t/p/w342";
+    private android.support.v7.widget.ShareActionProvider mShareActionProvider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,4 +48,56 @@ public class DetailActivity extends AppCompatActivity {
                 .load(baseUrl+posterpath+"?api_key=52a1dc564a183650a3b560723582b6f6")
                 .into(icon);
     }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.detail_menu, menu);
+
+        MenuItem item=menu.findItem(R.id.share);
+        mShareActionProvider = (android.support.v7.widget.ShareActionProvider) MenuItemCompat.getActionProvider(item);
+
+//        if(mShareActionProvider!=null){
+           mShareActionProvider.setShareIntent(createMovieShareIntent());
+//       }
+//
+//        else{
+//            Toast.makeText(this,"Share Action Provider is null",Toast.LENGTH_LONG).show();
+//        }
+
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.share) {
+
+            return true;
+        }
+
+
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private Intent createMovieShareIntent(){
+        String moviename=name.getText().toString();
+        Log.i("movien",moviename);
+
+        Intent intent=new Intent(Intent.ACTION_SEND);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+        intent.setType("type/plain");
+        intent.putExtra(Intent.EXTRA_TEXT,moviename);
+
+        return intent;
+    }
+
+
+
 }
