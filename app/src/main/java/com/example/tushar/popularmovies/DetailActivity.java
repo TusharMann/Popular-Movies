@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -56,13 +57,13 @@ public class DetailActivity extends AppCompatActivity {
         MenuItem item=menu.findItem(R.id.share);
         mShareActionProvider = (android.support.v7.widget.ShareActionProvider) MenuItemCompat.getActionProvider(item);
 
-//        if(mShareActionProvider!=null){
+        if(mShareActionProvider!=null){
            mShareActionProvider.setShareIntent(createMovieShareIntent());
-//       }
-//
-//        else{
-//            Toast.makeText(this,"Share Action Provider is null",Toast.LENGTH_LONG).show();
-//        }
+       }
+
+        else{
+            Toast.makeText(this,"Share Action Provider is null",Toast.LENGTH_LONG).show();
+        }
 
 
         return true;
