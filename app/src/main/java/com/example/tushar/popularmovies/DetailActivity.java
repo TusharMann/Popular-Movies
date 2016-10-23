@@ -39,7 +39,7 @@ public class DetailActivity extends AppCompatActivity {
         Movie movie=(Movie)i.getSerializableExtra("movie object");
         String posterpath=movie.getPosterPath();
 
-        name.setText("Movie Title\n"+movie.getTitle());
+        name.setText(movie.getTitle());
         rating.setText("Movie Rating \n"+movie.getRating());
         overview.setText(movie.getDescription());
         release.setText("Release Date\n"+movie.getReleaseDate());
