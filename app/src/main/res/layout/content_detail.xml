@@ -145,6 +145,19 @@
 
     </LinearLayout>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="2sp"
+        android:layout_marginTop="5sp"
+        android:background="@color/grey"/>
+
+
+    <WebView
+        android:layout_width="300sp"
+        android:layout_height="100sp"
+        android:layout_marginTop="20sp"
+        android:id="@+id/webview"
+        android:layout_marginLeft="20sp"/>
 
 </LinearLayout>
 

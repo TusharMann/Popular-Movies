@@ -8,6 +8,8 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -15,11 +17,19 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class DetailActivity extends AppCompatActivity {
 
     TextView name,rating,overview,release;
-    Button favourite;
+    Button favourite,trailer1,trailer2;
+    WebView webView;
     ImageView icon;
+    ArrayList<VideoKey> keylist;
     String baseUrl = "http://image.tmdb.org/t/p/w342";
     private android.support.v7.widget.ShareActionProvider mShareActionProvider;
 
@@ -37,6 +47,9 @@ public class DetailActivity extends AppCompatActivity {
         release=(TextView)findViewById(R.id.movie_release);
         icon=(ImageView)findViewById(R.id.movie_icon);
         favourite=(Button)findViewById(R.id.favourite_button);
+        trailer1=(Button)findViewById(R.id.trailer1);
+        trailer2=(Button)findViewById(R.id.trailer2);
+        webView=(WebView)findViewById(R.id.webview);
 
         Intent i=getIntent();
         Movie movie=(Movie)i.getSerializableExtra("movie object");
@@ -49,9 +62,51 @@ public class DetailActivity extends AppCompatActivity {
         favourite.setText("Mark As \n Favourite");
         setTitle("Movie Details");
 
+        int id=movie.getId();
+
         Picasso.with(this)
                 .load(baseUrl+posterpath+"?api_key=52a1dc564a183650a3b560723582b6f6")
                 .into(icon);
+
+        Call<VideoKeyJsonObject> jsonObject = ApiClient.getInterface().getVideokey(id);
+
+        jsonObject.enqueue(new Callback<VideoKeyJsonObject>() {
+            @Override
+            public void onResponse(Call<VideoKeyJsonObject> call, Response<VideoKeyJsonObject> response) {
+                VideoKeyJsonObject jsonObject1 = response.body();
+
+                for (int i = 0; i < jsonObject1.getResult().size(); i++)
+                    keylist.add(jsonObject1.getResult().get(i));
+
+                Log.i("key data", String.valueOf(keylist.size()));
+            }
+            @Override
+            public void onFailure(Call<VideoKeyJsonObject> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "Check your internet connection", Toast.LENGTH_LONG).show();
+
+            }
+        });
+
+        trailer1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                VideoKey keyobject=(VideoKey)keylist.get(0);
+                String key=keyobject.getKey();
+                webView.loadUrl("https://www.youtube.com/watch?v="+key);
+            }
+        });
+
+        trailer2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                VideoKey keyobject=(VideoKey)keylist.get(1);
+                String key=keyobject.getKey();
+                webView.loadUrl("https://www.youtube.com/watch?v="+key);
+
+            }
+        });
+
+
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
