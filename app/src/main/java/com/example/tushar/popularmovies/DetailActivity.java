@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,6 +18,7 @@ import com.squareup.picasso.Picasso;
 public class DetailActivity extends AppCompatActivity {
 
     TextView name,rating,overview,release;
+    Button favourite;
     ImageView icon;
     String baseUrl = "http://image.tmdb.org/t/p/w342";
     private android.support.v7.widget.ShareActionProvider mShareActionProvider;
@@ -34,16 +36,18 @@ public class DetailActivity extends AppCompatActivity {
         overview=(TextView)findViewById(R.id.movie_overview);
         release=(TextView)findViewById(R.id.movie_release);
         icon=(ImageView)findViewById(R.id.movie_icon);
+        favourite=(Button)findViewById(R.id.favourite_button);
 
         Intent i=getIntent();
         Movie movie=(Movie)i.getSerializableExtra("movie object");
         String posterpath=movie.getPosterPath();
 
         name.setText(movie.getTitle());
-        rating.setText("Movie Rating \n"+movie.getRating());
+        rating.setText("Movie Rating \n"+movie.getRating()+"/10");
         overview.setText(movie.getDescription());
         release.setText("Release Date\n"+movie.getReleaseDate());
-        setTitle(movie.getTitle());
+        favourite.setText("Mark As \n Favourite");
+        setTitle("Movie Details");
 
         Picasso.with(this)
                 .load(baseUrl+posterpath+"?api_key=52a1dc564a183650a3b560723582b6f6")
