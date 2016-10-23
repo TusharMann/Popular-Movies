@@ -7,6 +7,9 @@ import com.google.gson.annotations.SerializedName;
  */
 public class VideoKey {
 
+    @SerializedName("id")
+    String id;
+
     @SerializedName("key")
     String key;
 

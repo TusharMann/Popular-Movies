@@ -8,7 +8,8 @@ import java.io.Serializable;
  * Created by Tushar on 13-10-2016.
  */
 public class Movie implements Serializable {
-    private int id;
+    @SerializedName("id")
+    private String  id;
     private String title;
     @SerializedName("release_date")
     private String releaseDate;
@@ -27,11 +28,11 @@ public class Movie implements Serializable {
         this.posterPath = posterPath;
     }
 
-    public int getId() {
+    public String  getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

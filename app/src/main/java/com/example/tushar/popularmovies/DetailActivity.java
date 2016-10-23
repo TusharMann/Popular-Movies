@@ -62,7 +62,8 @@ public class DetailActivity extends AppCompatActivity {
         favourite.setText("Mark As \n Favourite");
         setTitle("Movie Details");
 
-        int id=movie.getId();
+        String id=(String)movie.getId();
+        keylist=new ArrayList<VideoKey>();
 
         Picasso.with(this)
                 .load(baseUrl+posterpath+"?api_key=52a1dc564a183650a3b560723582b6f6")
@@ -78,7 +79,7 @@ public class DetailActivity extends AppCompatActivity {
                 for (int i = 0; i < jsonObject1.getResult().size(); i++)
                     keylist.add(jsonObject1.getResult().get(i));
 
-                Log.i("key data", String.valueOf(keylist.size()));
+                Log.i("movie data", String.valueOf(keylist.size()));
             }
             @Override
             public void onFailure(Call<VideoKeyJsonObject> call, Throwable t) {

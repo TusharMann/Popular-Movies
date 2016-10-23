@@ -16,5 +16,5 @@ public interface ApiClientInterface {
     Call<MovieJsonObject> getTopRated();
 
     @GET("movie/{id}/videos?api_key=59276f8d407daa49e874d6b17ffe603c")
-    Call<VideoKeyJsonObject> getVideokey(@Path("id") int id);
+    Call<VideoKeyJsonObject> getVideokey(@Path("id") String id);
 }
