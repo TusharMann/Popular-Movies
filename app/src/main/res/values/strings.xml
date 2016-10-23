@@ -8,4 +8,7 @@
     <string name="movie_description">Movie Description</string>
     <string name="detail_share">Share</string>
     <string name="favourite_button">Mark as Favourite</string>
+    <string name="play_trailer1">Trailer 1</string>
+    <string name="play_trailer2">Trailer 2</string>
+    <string name="trailers">Trailers</string>
 </resources>
