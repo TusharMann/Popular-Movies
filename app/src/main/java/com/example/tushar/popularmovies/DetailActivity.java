@@ -76,8 +76,8 @@ public class DetailActivity extends AppCompatActivity {
             public void onResponse(Call<VideoKeyJsonObject> call, Response<VideoKeyJsonObject> response) {
                 VideoKeyJsonObject jsonObject1 = response.body();
 
-                for (int i = 0; i < jsonObject1.getResult().size(); i++)
-                    keylist.add(jsonObject1.getResult().get(i));
+                for (int i = 0; i < jsonObject1.getResults().size(); i++)
+                    keylist.add(jsonObject1.getResults().get(i));
 
                 Log.i("movie data", String.valueOf(keylist.size()));
             }

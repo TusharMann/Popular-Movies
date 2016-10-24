@@ -1,7 +1,5 @@
 package com.example.tushar.popularmovies;
 
-import com.google.gson.annotations.SerializedName;
-
 import java.util.ArrayList;
 
 /**
@@ -9,13 +7,23 @@ import java.util.ArrayList;
  */
 public class VideoKeyJsonObject {
 
-    @SerializedName("id")
-    int id;
+    private int id;
 
-    @SerializedName("result")
-    ArrayList<VideoKey> result;
+    private ArrayList<VideoKey> results;
 
-    public ArrayList<VideoKey> getResult() {
-        return result;
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public ArrayList<VideoKey> getResults() {
+        return results;
+    }
+
+    public void setResults(ArrayList<VideoKey> results) {
+        this.results = results;
     }
 }
