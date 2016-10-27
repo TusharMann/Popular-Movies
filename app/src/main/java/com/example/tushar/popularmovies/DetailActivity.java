@@ -1,11 +1,14 @@
 package com.example.tushar.popularmovies;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,7 +29,7 @@ import retrofit2.Response;
 public class DetailActivity extends AppCompatActivity {
 
     TextView name,rating,overview,release;
-    Button favourite,trailer1,trailer2;
+    Button favourite,trailer1,trailer2,review;
     WebView webView;
     ImageView icon;
     ArrayList<VideoKey> keylist;
@@ -51,6 +54,7 @@ public class DetailActivity extends AppCompatActivity {
         trailer1=(Button)findViewById(R.id.trailer1);
         trailer2=(Button)findViewById(R.id.trailer2);
         webView=(WebView)findViewById(R.id.webview);
+        review=(Button)findViewById(R.id.review);
 
         Intent i=getIntent();
         Movie movie=(Movie)i.getSerializableExtra("movie object");
@@ -125,6 +129,38 @@ public class DetailActivity extends AppCompatActivity {
                 VideoKey keyobject=(VideoKey)keylist.get(1);
                 String key=keyobject.getKey();
                 webView.loadUrl("https://www.youtube.com/watch?v="+key);
+
+            }
+        });
+
+        review.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                LayoutInflater li=LayoutInflater.from(getApplicationContext());
+                View reviewdialog=li.inflate(R.layout.reviewalertdialog,null);
+
+                AlertDialog.Builder builder=new AlertDialog.Builder(getApplicationContext());
+                builder.setView(reviewdialog);
+
+                TextView reviewtextbox;
+                reviewtextbox=(TextView) reviewdialog.findViewById(R.id.review_textbox);
+
+               Reviews review=(Reviews)reviews.get(1);
+               String abc=review.getContent();
+                Log.i("movie review", abc);
+               reviewtextbox.setText("abc");
+
+                builder.setPositiveButton("Back", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+
+                AlertDialog alertDialog=builder.create();
+                alertDialog.show();
+
+
 
             }
         });
