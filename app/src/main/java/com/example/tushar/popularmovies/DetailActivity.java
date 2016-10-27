@@ -30,6 +30,7 @@ public class DetailActivity extends AppCompatActivity {
     WebView webView;
     ImageView icon;
     ArrayList<VideoKey> keylist;
+    ArrayList<Reviews> reviews;
     String baseUrl = "http://image.tmdb.org/t/p/w342";
     private android.support.v7.widget.ShareActionProvider mShareActionProvider;
 
@@ -64,6 +65,7 @@ public class DetailActivity extends AppCompatActivity {
 
         String id=(String)movie.getId();
         keylist=new ArrayList<VideoKey>();
+        reviews=new ArrayList<Reviews>();
 
         Picasso.with(this)
                 .load(baseUrl+posterpath+"?api_key=52a1dc564a183650a3b560723582b6f6")
@@ -87,6 +89,26 @@ public class DetailActivity extends AppCompatActivity {
 
             }
         });
+
+        Call<ReviewsJsonObject> jsonObject2 = ApiClient.getInterface().getReviews(id);
+
+        jsonObject2.enqueue(new Callback<ReviewsJsonObject>() {
+            @Override
+            public void onResponse(Call<ReviewsJsonObject> call, Response<ReviewsJsonObject> response) {
+                ReviewsJsonObject jsonObject3 = response.body();
+
+                for (int i = 0; i < jsonObject3.getResults().size(); i++)
+                    reviews.add(jsonObject3.getResults().get(i));
+
+                Log.i("movie reviews", String.valueOf(reviews.size()));
+            }
+            @Override
+            public void onFailure(Call<ReviewsJsonObject> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "Check your internet connection", Toast.LENGTH_LONG).show();
+
+            }
+        });
+
 
         trailer1.setOnClickListener(new View.OnClickListener() {
             @Override

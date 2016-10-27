@@ -17,4 +17,8 @@ public interface ApiClientInterface {
 
     @GET("movie/{id}/videos?api_key=59276f8d407daa49e874d6b17ffe603c")
     Call<VideoKeyJsonObject> getVideokey(@Path("id") String id);
+
+    @GET("movie/{id}/reviews?api_key=59276f8d407daa49e874d6b17ffe603c")
+    Call<ReviewsJsonObject> getReviews(@Path("id") String id);
+
 }
