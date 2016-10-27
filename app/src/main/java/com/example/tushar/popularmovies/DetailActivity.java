@@ -1,6 +1,5 @@
 package com.example.tushar.popularmovies;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
@@ -139,26 +138,20 @@ public class DetailActivity extends AppCompatActivity {
                 LayoutInflater li=LayoutInflater.from(getApplicationContext());
                 View reviewdialog=li.inflate(R.layout.reviewalertdialog,null);
 
-                AlertDialog.Builder builder=new AlertDialog.Builder(getApplicationContext());
+                AlertDialog builder=new AlertDialog.Builder(DetailActivity.this).create();
                 builder.setView(reviewdialog);
 
                 TextView reviewtextbox;
                 reviewtextbox=(TextView) reviewdialog.findViewById(R.id.review_textbox);
 
-               Reviews review=(Reviews)reviews.get(1);
+               Reviews review=(Reviews)reviews.get(0);
                String abc=review.getContent();
                 Log.i("movie review", abc);
-               reviewtextbox.setText("abc");
+               reviewtextbox.setText(abc);
 
-                builder.setPositiveButton("Back", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
 
-                    }
-                });
-
-                AlertDialog alertDialog=builder.create();
-                alertDialog.show();
+                builder.setTitle("Reviews");
+                builder.show();
 
 
 
