@@ -8,6 +8,8 @@ import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity {
 
+    int counter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -17,6 +19,24 @@ public class MainActivity extends AppCompatActivity {
 
         Popular_Movies_fragment fragment=new Popular_Movies_fragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.mainActivity_framelayout,fragment).commit();
+        counter=1;
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        if(counter!=1) {
+            Popular_Movies_fragment fragment=new Popular_Movies_fragment();
+            getSupportFragmentManager().beginTransaction().replace(R.id.mainActivity_framelayout,fragment).commit();
+            counter=1;
+            setTitle("Popular Movies");
+
+        }
+
+        else
+            super.onBackPressed();
+
+
     }
 
     @Override
@@ -35,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.top_rated) {
+            counter=0;
             Highest_Rated_fragment fragment=new Highest_Rated_fragment();
             getSupportFragmentManager().beginTransaction().replace(R.id.mainActivity_framelayout,fragment).commit();
             setTitle("Highest Rated Movies");
@@ -42,9 +63,18 @@ public class MainActivity extends AppCompatActivity {
         }
 
         else if(id == R.id.popular){
+            counter=1;
             Popular_Movies_fragment fragment=new Popular_Movies_fragment();
             getSupportFragmentManager().beginTransaction().replace(R.id.mainActivity_framelayout,fragment).commit();
             setTitle("Popular Movies");
+
+        }
+
+        else if(id == R.id.favourite){
+            counter=0;
+            Favourite_Movies fragment=new Favourite_Movies();
+            getSupportFragmentManager().beginTransaction().replace(R.id.mainActivity_framelayout,fragment).commit();
+            setTitle("Favourite Movies");
 
         }
 

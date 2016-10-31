@@ -1,7 +1,6 @@
 package com.example.tushar.popularmovies;
 
 import android.content.Context;
-import android.graphics.Movie;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -12,12 +11,12 @@ import java.util.ArrayList;
 /**
  * Created by Tushar on 01-11-2016.
  */
-public class Favourite_Adapter extends ArrayAdapter<Movie> {
+public class Favourite_Adapter extends ArrayAdapter<com.example.tushar.popularmovies.Movie> {
 
     Context context;
-    ArrayList<Movie> favoutitelist;
+    ArrayList<com.example.tushar.popularmovies.Movie> favoutitelist;
 
-    public Favourite_Adapter(Context context, ArrayList<Movie> list) {
+    public Favourite_Adapter(Context context, ArrayList<com.example.tushar.popularmovies.Movie> list) {
         super(context,0,list);
         this.context = context;
         this.favoutitelist = list;
@@ -45,8 +44,9 @@ public class Favourite_Adapter extends ArrayAdapter<Movie> {
 
         ViewHolder vh = (ViewHolder) convertView.getTag();
 
-        Mov movie =(Movie) getItem(position);
-        vh.title.setText(movie.);
+        com.example.tushar.popularmovies.Movie movie=(com.example.tushar.popularmovies.Movie)getItem(position);
+        vh.title.setText(movie.getTitle());
+        vh.rating.setText(movie.getRating());
 
 
 

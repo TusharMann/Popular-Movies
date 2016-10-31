@@ -2,17 +2,12 @@ package com.example.tushar.popularmovies;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Movie;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-
-import com.example.tushar.popularmovies.Favourite_Adapter;
-import com.example.tushar.popularmovies.Database;
-import com.example.tushar.popularmovies.R;
 
 import java.util.ArrayList;
 
@@ -21,7 +16,7 @@ public class Favourite_Movies extends Fragment {
     View v;
     Database sqlite;
     SQLiteDatabase db;
-    ArrayList<Movie> list;
+    ArrayList<com.example.tushar.popularmovies.Movie> list;
     ListView listView;
     Favourite_Adapter adapter;
 
@@ -40,7 +35,7 @@ public class Favourite_Movies extends Fragment {
 
         sqlite=new Database(getContext(),1);
         db=sqlite.getWritableDatabase();
-        list=new ArrayList<Movie>();
+        list=new ArrayList<com.example.tushar.popularmovies.Movie>();
         listView=(ListView)v.findViewById(R.id.favourite_list) ;
         adapter=new Favourite_Adapter(getContext(),list);
         listView.setAdapter(adapter);
@@ -57,14 +52,14 @@ public class Favourite_Movies extends Fragment {
             int index5=cursor.getColumnIndex(Database.rating);
             int index6=cursor.getColumnIndex(Database.poster);
 
-            movie.setId(cursor.getString(index1);
+            movie.setId(cursor.getString(index1));
             movie.setTitle(cursor.getString(index2));
-            movie.setTitle(cursor.getString(index2));
-            movie.setTitle(cursor.getString(index2));
-            movie.setTitle(cursor.getString(index2));
-            movie.setTitle(cursor.getString(index2));
+            movie.setReleaseDate(cursor.getString(index3));
+            movie.setDescription(cursor.getString(index4));
+            movie.setRating(cursor.getString(index5));
+            movie.setPosterPath(cursor.getString(index6));
 
-            list.add(c);
+            list.add(movie);
         }
         adapter.notifyDataSetChanged();
 

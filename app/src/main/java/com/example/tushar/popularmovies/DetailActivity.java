@@ -171,13 +171,15 @@ public class DetailActivity extends AppCompatActivity {
             public void onClick(View view) {
                 ContentValues cv=new ContentValues();
                 cv.put(Database.id,movie.getId());
-                cv.put(Database.title,movie.getTitle());
+                cv.put(Database.title,movie.getTitle());Log.i("Title",movie.getTitle());
                 cv.put(Database.rating,movie.getRating());
                 cv.put(Database.description,movie.getDescription());
                 cv.put(Database.poster,movie.getPosterPath());
                 cv.put(Database.release,movie.getReleaseDate());
 
                 db.insert(Database.Tname,null,cv);
+
+                Toast.makeText(getApplicationContext(),"Marked as Favourtite",Toast.LENGTH_LONG).show();
             }
         });
 
