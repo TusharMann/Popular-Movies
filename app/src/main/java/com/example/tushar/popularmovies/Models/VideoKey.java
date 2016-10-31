@@ -1,4 +1,4 @@
-package com.example.tushar.popularmovies;
+package com.example.tushar.popularmovies.Models;
 
 /**
  * Created by Tushar on 24-10-2016.

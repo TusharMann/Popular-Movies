@@ -1,4 +1,4 @@
-package com.example.tushar.popularmovies;
+package com.example.tushar.popularmovies.Fragments;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -12,6 +12,13 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.Toast;
 
+import com.example.tushar.popularmovies.Activity.DetailActivity;
+import com.example.tushar.popularmovies.Models.Movie;
+import com.example.tushar.popularmovies.JsonObjects.MovieJsonObject;
+import com.example.tushar.popularmovies.Movie_Adapter;
+import com.example.tushar.popularmovies.Network.ApiClient;
+import com.example.tushar.popularmovies.R;
+
 import java.util.ArrayList;
 
 import retrofit2.Call;
@@ -19,17 +26,17 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class Popular_Movies_fragment extends Fragment {
+public class Highest_Rated_fragment extends Fragment {
     ArrayList<Movie> movieList;
     Movie_Adapter adapter;
     GridView gridView;
     ProgressDialog progressDialog;
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-       View view=inflater.inflate(R.layout.fragment_popular__movies_fragment, container, false);
+        // Inflate the layout for this fragment
+        View view=inflater.inflate(R.layout.fragment_highest__rated_fragment, container, false);
 
         progressDialog=new ProgressDialog(getActivity());
         progressDialog.setTitle("Loading");
@@ -52,7 +59,7 @@ public class Popular_Movies_fragment extends Fragment {
             }
         });
 
-        Call<MovieJsonObject> jsonObject = ApiClient.getInterface().getPopularMovies();
+        Call<MovieJsonObject> jsonObject = ApiClient.getInterface().getTopRated();
 
         jsonObject.enqueue(new Callback<MovieJsonObject>() {
             @Override
@@ -62,7 +69,7 @@ public class Popular_Movies_fragment extends Fragment {
                 for (int i = 0; i < jsonObject1.getMovieList().size(); i++)
                     movieList.add(jsonObject1.getMovieList().get(i));
 
-               Log.i("movie data", String.valueOf(movieList.size()));
+                Log.i("movie data", String.valueOf(movieList.size()));
 
                 adapter.notifyDataSetChanged();
                 progressDialog.hide();
@@ -76,6 +83,4 @@ public class Popular_Movies_fragment extends Fragment {
 
         return view;
     }
-
-
 }

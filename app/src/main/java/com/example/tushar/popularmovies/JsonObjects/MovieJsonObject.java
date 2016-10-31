@@ -1,5 +1,6 @@
-package com.example.tushar.popularmovies;
+package com.example.tushar.popularmovies.JsonObjects;
 
+import com.example.tushar.popularmovies.Models.Movie;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;

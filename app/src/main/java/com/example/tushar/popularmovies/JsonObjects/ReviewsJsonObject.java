@@ -1,4 +1,6 @@
-package com.example.tushar.popularmovies;
+package com.example.tushar.popularmovies.JsonObjects;
+
+import com.example.tushar.popularmovies.Models.Reviews;
 
 import java.util.ArrayList;
 

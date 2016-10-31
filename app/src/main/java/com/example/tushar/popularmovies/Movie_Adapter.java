@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.tushar.popularmovies.Models.Movie;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
