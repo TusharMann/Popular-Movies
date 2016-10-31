@@ -1,4 +1,4 @@
-package com.example.tushar.popularmovies.Activity;
+package com.example.tushar.popularmovies;
 
 import android.content.ContentValues;
 import android.content.Intent;
@@ -19,14 +19,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.tushar.popularmovies.Database;
-import com.example.tushar.popularmovies.Models.Movie;
-import com.example.tushar.popularmovies.Network.ApiClient;
-import com.example.tushar.popularmovies.R;
-import com.example.tushar.popularmovies.Models.Reviews;
-import com.example.tushar.popularmovies.JsonObjects.ReviewsJsonObject;
-import com.example.tushar.popularmovies.Models.VideoKey;
-import com.example.tushar.popularmovies.JsonObjects.VideoKeyJsonObject;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;

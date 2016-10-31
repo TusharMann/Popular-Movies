@@ -1,14 +1,10 @@
-package com.example.tushar.popularmovies.Activity;
+package com.example.tushar.popularmovies;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-
-import com.example.tushar.popularmovies.Fragments.Highest_Rated_fragment;
-import com.example.tushar.popularmovies.Fragments.Popular_Movies_fragment;
-import com.example.tushar.popularmovies.R;
 
 public class MainActivity extends AppCompatActivity {
 

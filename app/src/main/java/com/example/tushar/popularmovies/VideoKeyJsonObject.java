@@ -1,6 +1,4 @@
-package com.example.tushar.popularmovies.JsonObjects;
-
-import com.example.tushar.popularmovies.Models.VideoKey;
+package com.example.tushar.popularmovies;
 
 import java.util.ArrayList;
 

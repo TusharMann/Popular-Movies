@@ -1,4 +1,4 @@
-package com.example.tushar.popularmovies.Network;
+package com.example.tushar.popularmovies;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;

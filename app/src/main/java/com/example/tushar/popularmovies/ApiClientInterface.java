@@ -1,8 +1,4 @@
-package com.example.tushar.popularmovies.Network;
-
-import com.example.tushar.popularmovies.JsonObjects.MovieJsonObject;
-import com.example.tushar.popularmovies.JsonObjects.ReviewsJsonObject;
-import com.example.tushar.popularmovies.JsonObjects.VideoKeyJsonObject;
+package com.example.tushar.popularmovies;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

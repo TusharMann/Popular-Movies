@@ -8,7 +8,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.tushar.popularmovies.Models.Movie;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -38,7 +37,7 @@ public class Movie_Adapter extends ArrayAdapter<Movie> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
        if(convertView==null){
-           convertView=View.inflate(context,R.layout.movie_adapterlayout,null);
+           convertView=View.inflate(context, R.layout.movie_adapterlayout,null);
 
            ViewHolder v=new ViewHolder();
            v.imageView=(ImageView)convertView.findViewById(R.id.movie_icon);

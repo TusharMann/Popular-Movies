@@ -1,4 +1,4 @@
-package com.example.tushar.popularmovies.Models;
+package com.example.tushar.popularmovies;
 
 import com.google.gson.annotations.SerializedName;
 
