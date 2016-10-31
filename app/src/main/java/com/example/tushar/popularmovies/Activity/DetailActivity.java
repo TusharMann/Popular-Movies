@@ -1,6 +1,8 @@
 package com.example.tushar.popularmovies.Activity;
 
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AlertDialog;
@@ -17,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.tushar.popularmovies.Database;
 import com.example.tushar.popularmovies.Models.Movie;
 import com.example.tushar.popularmovies.Network.ApiClient;
 import com.example.tushar.popularmovies.R;
@@ -33,6 +36,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class DetailActivity extends AppCompatActivity {
+
+    Database sqlite;
+    SQLiteDatabase db;
 
     TextView name,rating,overview,release;
     Button favourite,trailer1,trailer2,review;
@@ -51,6 +57,9 @@ public class DetailActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
 
+        sqlite=new Database(this,1);
+        db=sqlite.getWritableDatabase();
+
         name=(TextView)findViewById(R.id.movie_name);
         rating=(TextView)findViewById(R.id.movie_rating);
         overview=(TextView)findViewById(R.id.movie_overview);
@@ -63,7 +72,7 @@ public class DetailActivity extends AppCompatActivity {
         review=(Button)findViewById(R.id.review);
 
         Intent i=getIntent();
-        Movie movie=(Movie)i.getSerializableExtra("movie object");
+        final Movie movie=(Movie)i.getSerializableExtra("movie object");
         String posterpath=movie.getPosterPath();
 
         name.setText(movie.getTitle());
@@ -162,6 +171,21 @@ public class DetailActivity extends AppCompatActivity {
 
 
 
+            }
+        });
+
+        favourite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ContentValues cv=new ContentValues();
+                cv.put(Database.id,movie.getId());
+                cv.put(Database.title,movie.getTitle());
+                cv.put(Database.rating,movie.getRating());
+                cv.put(Database.description,movie.getDescription());
+                cv.put(Database.poster,movie.getPosterPath());
+                cv.put(Database.release,movie.getReleaseDate());
+
+                db.insert(Database.Tname,null,cv);
             }
         });
 
