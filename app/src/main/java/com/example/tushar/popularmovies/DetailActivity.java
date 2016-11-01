@@ -3,8 +3,11 @@ package com.example.tushar.popularmovies;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -13,7 +16,6 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -32,9 +34,9 @@ public class DetailActivity extends AppCompatActivity {
     Database sqlite;
     SQLiteDatabase db;
 
-    TextView name,rating,overview,release;
+    TextView name;
+    TextView rating,overview,release;
     Button favourite,trailer1,trailer2,review;
-    WebView webView;
     ImageView icon;
     ArrayList<VideoKey> keylist;
     ArrayList<Reviews> reviews;
@@ -48,9 +50,13 @@ public class DetailActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        ActionBar ab = getSupportActionBar();
+        ab.setDisplayHomeAsUpEnabled(true);
+
 
         sqlite=new Database(this,1);
         db=sqlite.getWritableDatabase();
+
 
         name=(TextView)findViewById(R.id.movie_name);
         rating=(TextView)findViewById(R.id.movie_rating);
@@ -60,7 +66,6 @@ public class DetailActivity extends AppCompatActivity {
         favourite=(Button)findViewById(R.id.favourite_button);
         trailer1=(Button)findViewById(R.id.trailer1);
         trailer2=(Button)findViewById(R.id.trailer2);
-        webView=(WebView)findViewById(R.id.webview);
         review=(Button)findViewById(R.id.review);
 
         Intent i=getIntent();
@@ -126,7 +131,11 @@ public class DetailActivity extends AppCompatActivity {
             public void onClick(View view) {
                 VideoKey keyobject=(VideoKey)keylist.get(0);
                 String key=keyobject.getKey();
-                webView.loadUrl("https://www.youtube.com/watch?v="+key);
+                String url = "http://www.youtube.com/watch?v="+key;
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                startActivity(i);
+
             }
         });
 
@@ -135,7 +144,11 @@ public class DetailActivity extends AppCompatActivity {
             public void onClick(View view) {
                 VideoKey keyobject=(VideoKey)keylist.get(1);
                 String key=keyobject.getKey();
-                webView.loadUrl("https://www.youtube.com/watch?v="+key);
+                String url = "http://www.youtube.com/watch?v="+key;
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                startActivity(i);
+
 
             }
         });
@@ -218,6 +231,10 @@ public class DetailActivity extends AppCompatActivity {
             return true;
         }
 
+        else if(id == android.R.id.home){
+            NavUtils.navigateUpFromSameTask(this);
+            return true;
+        }
 
 
         return super.onOptionsItemSelected(item);
