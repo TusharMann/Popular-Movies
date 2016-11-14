@@ -5,10 +5,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.FrameLayout;
 
 public class MainActivity extends AppCompatActivity {
 
     int counter;
+    FrameLayout container1,container2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,10 +19,14 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        container1=(FrameLayout)findViewById(R.id.mainActivity_framelayout);
+        container2=(FrameLayout)findViewById(R.id.detail_activity_framelayout);
+
         Popular_Movies_fragment fragment=new Popular_Movies_fragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.mainActivity_framelayout,fragment).commit();
         counter=1;
     }
+
 
     @Override
     public void onBackPressed() {
