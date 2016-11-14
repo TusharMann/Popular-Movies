@@ -31,6 +31,8 @@ public class Popular_Movies_fragment extends Fragment {
                              Bundle savedInstanceState) {
        View view=inflater.inflate(R.layout.fragment_popular__movies_fragment, container, false);
 
+        final Boolean landscape=(Boolean)getArguments().getBoolean("Landscape");
+
         progressDialog=new ProgressDialog(getActivity());
         progressDialog.setTitle("Loading");
         progressDialog.setMessage("Please Wait...");
@@ -45,10 +47,27 @@ public class Popular_Movies_fragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                Intent intent = new Intent();
-                intent.setClass(getActivity(), DetailActivity.class);
-                intent.putExtra("movie object",movieList.get(i));
-                startActivity(intent);
+                Movie movie=(Movie)adapterView.getItemAtPosition(i);
+
+                if(landscape==false) {
+                    Intent intent = new Intent();
+                    intent.setClass(getActivity(), DetailActivity.class);
+                    intent.putExtra("movie object", movieList.get(i));
+                    startActivity(intent);
+                }
+
+                else{
+                    DetailFragment MovieDetails=new DetailFragment();
+                    Bundle bundle=new Bundle();
+                    bundle.putSerializable("selectedMovieObjectForFragment", movie);
+                    MovieDetails.setArguments(bundle);
+                    //getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout_activityMain, fragmentMovieDetails).commit();
+
+
+
+                }
+
+
             }
         });
 

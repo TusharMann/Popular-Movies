@@ -22,6 +22,16 @@ public class MainActivity extends AppCompatActivity {
         container1=(FrameLayout)findViewById(R.id.mainActivity_framelayout);
         container2=(FrameLayout)findViewById(R.id.detail_activity_framelayout);
 
+        if(container2==null){
+            Bundle b=new Bundle();
+            b.putBoolean("Landscape",false);
+            Popular_Movies_fragment fragment=new Popular_Movies_fragment();
+            fragment.setArguments(b);
+
+
+        }
+
+
         Popular_Movies_fragment fragment=new Popular_Movies_fragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.mainActivity_framelayout,fragment).commit();
         counter=1;
