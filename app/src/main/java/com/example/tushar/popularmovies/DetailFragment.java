@@ -37,6 +37,7 @@ public class DetailFragment extends Fragment {
     ArrayList<VideoKey> keylist;
     ArrayList<Reviews> reviews;
     String baseUrl = "http://image.tmdb.org/t/p/w342";
+    Boolean markasfavourite=false;
 
 
     public DetailFragment() {

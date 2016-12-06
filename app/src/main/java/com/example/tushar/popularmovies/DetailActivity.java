@@ -42,6 +42,7 @@ public class DetailActivity extends AppCompatActivity {
     ArrayList<Reviews> reviews;
     String baseUrl = "http://image.tmdb.org/t/p/w342";
     private android.support.v7.widget.ShareActionProvider mShareActionProvider;
+    Boolean markasfavourite=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -182,17 +183,37 @@ public class DetailActivity extends AppCompatActivity {
         favourite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ContentValues cv=new ContentValues();
-                cv.put(Database.id,movie.getId());
-                cv.put(Database.title,movie.getTitle());Log.i("Title",movie.getTitle());
-                cv.put(Database.rating,movie.getRating());
-                cv.put(Database.description,movie.getDescription());
-                cv.put(Database.poster,movie.getPosterPath());
-                cv.put(Database.release,movie.getReleaseDate());
+                if(markasfavourite){
+                    markasfavourite=false;
+                    favourite.setText("Mark \n As Favourite");
+                    favourite.setBackgroundResource(R.color.moviename);
+                    Toast.makeText(getApplicationContext(),"Movie removed from Favourite List ",Toast.LENGTH_LONG).show();
 
-                db.insert(Database.Tname,null,cv);
+//                    String del="DELETE FROM "+Database.Tname+"WHERE ID="+movie.getId();
+//                    db.execSQL(del);
 
-                Toast.makeText(getApplicationContext(),"Marked as Favourtite",Toast.LENGTH_LONG).show();
+                    db.delete(Database.Tname, Database.id+"="+movie.getId(), null);
+
+                }
+
+                else {
+                    markasfavourite=true;
+                    favourite.setText("Marked \n As Favourite");
+                    favourite.setBackgroundResource(R.color.marked);
+
+                    ContentValues cv = new ContentValues();
+                    cv.put(Database.id, movie.getId());
+                    cv.put(Database.title, movie.getTitle());
+                    Log.i("Title", movie.getTitle());
+                    cv.put(Database.rating, movie.getRating());
+                    cv.put(Database.description, movie.getDescription());
+                    cv.put(Database.poster, movie.getPosterPath());
+                    cv.put(Database.release, movie.getReleaseDate());
+
+                    db.insert(Database.Tname, null, cv);
+
+                    Toast.makeText(getApplicationContext(), "Movie Added in Favourtite List", Toast.LENGTH_LONG).show();
+                }
             }
         });
 

@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="moviename">#0097A7</color>
+    <color name="marked">#4DB6AC</color>
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
    <color name="grey"> #9E9E9E</color>
