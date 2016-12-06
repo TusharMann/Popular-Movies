@@ -2,6 +2,7 @@ package com.example.tushar.popularmovies;
 
 import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
@@ -54,7 +55,6 @@ public class DetailActivity extends AppCompatActivity {
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
 
-
         sqlite=new Database(this,1);
         db=sqlite.getWritableDatabase();
 
@@ -79,6 +79,8 @@ public class DetailActivity extends AppCompatActivity {
         release.setText("Release Date\n"+movie.getReleaseDate());
         favourite.setText("Mark As \n Favourite");
         setTitle("Movie Details");
+
+        checkForFavouriteMovie();
 
         String id=(String)movie.getId();
         keylist=new ArrayList<VideoKey>();
@@ -214,11 +216,40 @@ public class DetailActivity extends AppCompatActivity {
 
                     Toast.makeText(getApplicationContext(), "Movie Added in Favourtite List", Toast.LENGTH_LONG).show();
                 }
+
             }
         });
 
 
     }
+
+
+    private void checkForFavouriteMovie() {
+
+        Intent i=getIntent();
+        Movie movie=(Movie)i.getSerializableExtra("movie object");
+
+
+
+        String Query = "Select * from " + Database.Tname + " where " + Database.id + " = " + movie.getId();
+        Cursor cursor = db.rawQuery(Query, null);
+
+        if(cursor.getCount() <= 0){
+            //means no row with this id exist, just let button as normal
+            markasfavourite=false;
+        }
+        else
+        {
+            //means the row is already in the database
+            favourite.setBackgroundResource(R.color.marked);
+            favourite.setText("Marked \n As Favourite");
+            markasfavourite=true;
+        }
+
+        cursor.close();
+
+    }
+
 
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
