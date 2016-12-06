@@ -53,10 +53,13 @@ public class Movie_Adapter extends ArrayAdapter<Movie> {
         String name=movie.getTitle();
         Log.i("movie data",name);
 
+        String imageurl=baseUrl+posterpath+"?api_key=52a1dc564a183650a3b560723582b6f6";
+
         vh.textView.setText(name);
         Picasso.with(context)
                 .load(baseUrl+posterpath+"?api_key=52a1dc564a183650a3b560723582b6f6")
                 .into(vh.imageView);
+
 
         return convertView;
     }
