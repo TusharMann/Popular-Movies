@@ -20,31 +20,23 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         container1=(FrameLayout)findViewById(R.id.mainActivity_framelayout);
-       // container2=(FrameLayout)findViewById(R.id.detail_activity_framelayout);
+        container2=(FrameLayout)findViewById(R.id.detail_activity_framelayout);
         Bundle b=new Bundle();
 
-//        if(container2!=null){
-//
-//            b.putInt("Landscape",1);
-//            Popular_Movies_fragment fragment=new Popular_Movies_fragment();
-//            fragment.setArguments(b);
-//
-//            DetailFragment fragment1=new DetailFragment();
-//            getSupportFragmentManager().beginTransaction().replace(R.id.detail_activity_framelayout,fragment1).commit();
-//            Log.i("container","container is not null");
-//        }
-//        else {
-//            b.putInt("Landscape",0);
-//            Popular_Movies_fragment fragment=new Popular_Movies_fragment();
-//            fragment.setArguments(b);
-//            Log.i("container","container is null");
-//        }
+        if(container2==null){
+
+            Popular_Movies_fragment fragment=new Popular_Movies_fragment();
+            getSupportFragmentManager().beginTransaction().replace(R.id.mainActivity_framelayout,fragment).commit();
+            counter=1;
+
+        }
+        else {
+            Popular_Movies_fragment fragment=new Popular_Movies_fragment();
+            getSupportFragmentManager().beginTransaction().replace(R.id.mainActivity_framelayout,fragment).commit();
+            counter=1;
+        }
 
 
-
-        Popular_Movies_fragment fragment=new Popular_Movies_fragment();
-        getSupportFragmentManager().beginTransaction().replace(R.id.mainActivity_framelayout,fragment).commit();
-        counter=1;
     }
 
 
