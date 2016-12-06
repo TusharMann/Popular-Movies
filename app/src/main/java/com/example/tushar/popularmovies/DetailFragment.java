@@ -50,7 +50,7 @@ public class DetailFragment extends Fragment {
         // Inflate the layout for this fragment
         View v=inflater.inflate(R.layout.fragment_detail, container, false);
 
-
+         Movie movie=(Movie)getArguments().getSerializable("selectedMovieObjectForFragment") ;
         sqlite=new Database(getActivity(),1);
         db=sqlite.getWritableDatabase();
 
@@ -65,8 +65,6 @@ public class DetailFragment extends Fragment {
         trailer2=(Button)v.findViewById(R.id.trailer2);
         review=(Button)v.findViewById(R.id.review);
 
-        Intent i=getIntent();
-        final Movie movie=(Movie)i.getSerializableExtra("movie object");
         String posterpath=movie.getPosterPath();
 
         name.setText(movie.getTitle());
@@ -179,6 +177,7 @@ public class DetailFragment extends Fragment {
         favourite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Movie movie=(Movie)getArguments().getSerializable("selectedMovieObjectForFragment") ;
                 ContentValues cv=new ContentValues();
                 cv.put(Database.id,movie.getId());
                 cv.put(Database.title,movie.getTitle());Log.i("Title",movie.getTitle());
