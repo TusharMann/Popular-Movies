@@ -1,10 +1,13 @@
-package com.example.tushar.popularmovies;
+ package com.example.tushar.popularmovies;
 
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -15,6 +18,7 @@ public class Favourite_Adapter extends ArrayAdapter<com.example.tushar.popularmo
 
     Context context;
     ArrayList<com.example.tushar.popularmovies.Movie> favoutitelist;
+    String baseUrl = "http://image.tmdb.org/t/p/w342";
 
     public Favourite_Adapter(Context context, ArrayList<com.example.tushar.popularmovies.Movie> list) {
         super(context,0,list);
@@ -24,7 +28,7 @@ public class Favourite_Adapter extends ArrayAdapter<com.example.tushar.popularmo
 
     public class ViewHolder {
         TextView title;
-        TextView rating;
+        ImageView poster;
     }
 
     @Override
@@ -35,7 +39,7 @@ public class Favourite_Adapter extends ArrayAdapter<com.example.tushar.popularmo
             ViewHolder vh = new ViewHolder();
 
             vh.title = (TextView) convertView.findViewById(R.id.movie_title);
-            vh.rating = (TextView) convertView.findViewById(R.id.movie_rating);
+            vh.poster = (ImageView) convertView.findViewById(R.id.movie_icon);
 
 
             convertView.setTag(vh);
@@ -44,9 +48,12 @@ public class Favourite_Adapter extends ArrayAdapter<com.example.tushar.popularmo
 
         ViewHolder vh = (ViewHolder) convertView.getTag();
 
-        com.example.tushar.popularmovies.Movie movie=(com.example.tushar.popularmovies.Movie)getItem(position);
+        Movie movie=(Movie)getItem(position);
+        String posterpath=movie.getPosterPath();
         vh.title.setText(movie.getTitle());
-        vh.rating.setText(movie.getRating());
+        Picasso.with(getContext())
+                .load(baseUrl+posterpath+"?api_key=52a1dc564a183650a3b560723582b6f6")
+                .into(vh.poster);
 
 
 

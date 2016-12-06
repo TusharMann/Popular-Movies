@@ -2,6 +2,7 @@ package com.example.tushar.popularmovies;
 
 import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
@@ -51,7 +52,7 @@ public class DetailFragment extends Fragment {
         // Inflate the layout for this fragment
         View v=inflater.inflate(R.layout.fragment_detail, container, false);
 
-         Movie movie=(Movie)getArguments().getSerializable("selectedMovieObjectForFragment") ;
+        final Movie movie=(Movie)getArguments().getSerializable("selectedMovieObjectForFragment") ;
         sqlite=new Database(getActivity(),1);
         db=sqlite.getWritableDatabase();
 
@@ -74,6 +75,7 @@ public class DetailFragment extends Fragment {
         release.setText("Release Date\n"+movie.getReleaseDate());
         favourite.setText("Mark As \n Favourite");
 
+        checkForFavouriteMovie();
 
         String id=(String)movie.getId();
         keylist=new ArrayList<VideoKey>();
@@ -178,24 +180,68 @@ public class DetailFragment extends Fragment {
         favourite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Movie movie=(Movie)getArguments().getSerializable("selectedMovieObjectForFragment") ;
-                ContentValues cv=new ContentValues();
-                cv.put(Database.id,movie.getId());
-                cv.put(Database.title,movie.getTitle());Log.i("Title",movie.getTitle());
-                cv.put(Database.rating,movie.getRating());
-                cv.put(Database.description,movie.getDescription());
-                cv.put(Database.poster,movie.getPosterPath());
-                cv.put(Database.release,movie.getReleaseDate());
+                if(markasfavourite){
+                    markasfavourite=false;
+                    favourite.setText("Mark \n As Favourite");
+                    favourite.setBackgroundResource(R.color.moviename);
+                    Toast.makeText(getActivity(),"Movie removed from Favourite List ",Toast.LENGTH_LONG).show();
 
-                db.insert(Database.Tname,null,cv);
+//                    String del="DELETE FROM "+Database.Tname+"WHERE ID="+movie.getId();
+//                    db.execSQL(del);
 
-                Toast.makeText(getActivity().getApplicationContext(),"Marked as Favourtite",Toast.LENGTH_LONG).show();
+                    db.delete(Database.Tname, Database.id+"="+movie.getId(), null);
+
+                }
+
+                else {
+                    markasfavourite=true;
+                    favourite.setText("Marked \n As Favourite");
+                    favourite.setBackgroundResource(R.color.marked);
+
+                    ContentValues cv = new ContentValues();
+                    cv.put(Database.id, movie.getId());
+                    cv.put(Database.title, movie.getTitle());
+                    Log.i("Title", movie.getTitle());
+                    cv.put(Database.rating, movie.getRating());
+                    cv.put(Database.description, movie.getDescription());
+                    cv.put(Database.poster, movie.getPosterPath());
+                    cv.put(Database.release, movie.getReleaseDate());
+
+                    db.insert(Database.Tname, null, cv);
+
+                    Toast.makeText(getActivity(), "Movie Added in Favourtite List", Toast.LENGTH_LONG).show();
+                }
+
             }
         });
 
 
-
         return v;
     }
+
+    private void checkForFavouriteMovie() {
+
+        Movie movie=(Movie)getArguments().getSerializable("selectedMovieObjectForFragment") ;
+
+
+        String Query = "Select * from " + Database.Tname + " where " + Database.id + " = " + movie.getId();
+        Cursor cursor = db.rawQuery(Query, null);
+
+        if(cursor.getCount() <= 0){
+            //means no row with this id exist, just let button as normal
+            markasfavourite=false;
+        }
+        else
+        {
+            //means the row is already in the database
+            favourite.setBackgroundResource(R.color.marked);
+            favourite.setText("Marked \n As Favourite");
+            markasfavourite=true;
+        }
+
+        cursor.close();
+
+    }
+
 
 }
