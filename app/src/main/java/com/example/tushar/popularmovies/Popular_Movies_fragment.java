@@ -1,7 +1,7 @@
 package com.example.tushar.popularmovies;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -24,6 +24,11 @@ public class Popular_Movies_fragment extends Fragment {
     Movie_Adapter adapter;
     GridView gridView;
     ProgressDialog progressDialog;
+    OnDataPass dataPasser;
+
+    public interface OnDataPass {
+        public void onDataPass(Movie m);
+    }
 
 
     @Override
@@ -61,14 +66,16 @@ public class Popular_Movies_fragment extends Fragment {
 //                }
 
               //  else if(landscape==0){
-                    //getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout_activityMain, fragmentMovieDetails).commit();
-                    Intent intent = new Intent();
-                    intent.setClass(getActivity(), DetailActivity.class);
-                    intent.putExtra("movie object", movieList.get(i));
-                    startActivity(intent);
+//                    getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout_activityMain, fragmentMovieDetails).commit();
+//                    Intent intent = new Intent();
+//                    intent.setClass(getActivity(), DetailActivity.class);
+//                    intent.putExtra("movie object", movieList.get(i));
+//                    startActivity(intent);
 
 
                // }
+
+                dataPasser.onDataPass(movieList.get(i));
 
 
             }
@@ -98,6 +105,13 @@ public class Popular_Movies_fragment extends Fragment {
 
         return view;
     }
+
+    @Override
+    public void onAttach(Activity a) {
+        super.onAttach(a);
+        dataPasser = (OnDataPass) a;
+    }
+
 
 
 }

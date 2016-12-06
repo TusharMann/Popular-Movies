@@ -1,16 +1,19 @@
 package com.example.tushar.popularmovies;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements Popular_Movies_fragment.OnDataPass {
 
     int counter;
     FrameLayout container1,container2;
+    Movie film;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,19 +26,10 @@ public class MainActivity extends AppCompatActivity {
         container2=(FrameLayout)findViewById(R.id.detail_activity_framelayout);
         Bundle b=new Bundle();
 
-        if(container2==null){
-
             Popular_Movies_fragment fragment=new Popular_Movies_fragment();
             getSupportFragmentManager().beginTransaction().replace(R.id.mainActivity_framelayout,fragment).commit();
             counter=1;
-
-        }
-        else {
-            Popular_Movies_fragment fragment=new Popular_Movies_fragment();
-            getSupportFragmentManager().beginTransaction().replace(R.id.mainActivity_framelayout,fragment).commit();
-            counter=1;
-        }
-
+     
 
     }
 
@@ -97,5 +91,21 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onDataPass(Movie m) {
+        film=(Movie)m;
+        Log.i("Name",film.getTitle());
+
+        if(container2==null){
+            Intent intent = new Intent();
+            intent.setClass(this, DetailActivity.class);
+            intent.putExtra("movie object", film);
+            startActivity(intent);
+
+        }
+
+
     }
 }
