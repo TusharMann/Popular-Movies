@@ -211,7 +211,7 @@ public class DetailActivity extends AppCompatActivity {
        }
 
         else{
-            Toast.makeText(this,"Share Action Provider is null",Toast.LENGTH_LONG).show();
+           // Toast.makeText(this,"Share Action Provider is null",Toast.LENGTH_LONG).show();
         }
 
 

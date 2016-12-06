@@ -1,7 +1,7 @@
 package com.example.tushar.popularmovies;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -24,6 +24,12 @@ public class Highest_Rated_fragment extends Fragment {
     Movie_Adapter adapter;
     GridView gridView;
     ProgressDialog progressDialog;
+    OnDataPass dataPasser;
+
+    public interface OnDataPass {
+        public void onDataPass(Movie m);
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -45,10 +51,8 @@ public class Highest_Rated_fragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                Intent intent = new Intent();
-                intent.setClass(getActivity(), DetailActivity.class);
-                intent.putExtra("movie object",movieList.get(i));
-                startActivity(intent);
+                dataPasser.onDataPass(movieList.get(i));
+
             }
         });
 
@@ -76,4 +80,11 @@ public class Highest_Rated_fragment extends Fragment {
 
         return view;
     }
+    @Override
+    public void onAttach(Activity a) {
+        super.onAttach(a);
+        dataPasser = (OnDataPass) a;
+    }
+
+
 }

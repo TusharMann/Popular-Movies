@@ -9,7 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
-public class MainActivity extends AppCompatActivity implements Popular_Movies_fragment.OnDataPass {
+public class MainActivity extends AppCompatActivity implements Popular_Movies_fragment.OnDataPass,Highest_Rated_fragment.OnDataPass {
 
     int counter;
     FrameLayout container1,container2;

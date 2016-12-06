@@ -53,28 +53,6 @@ public class Popular_Movies_fragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-//                Movie movie=(Movie)adapterView.getItemAtPosition(i);
-//                int landscape=(int) getArguments().getInt("Landscape");
-//                Log.i("container",String.valueOf(landscape));
-//
-//                if(landscape==1) {
-//                    DetailFragment MovieDetails=new DetailFragment();
-//                    Bundle bundle=new Bundle();
-//                    bundle.putSerializable("selectedMovieObjectForFragment", movie);
-//                    MovieDetails.setArguments(bundle);
-//
-//                }
-
-              //  else if(landscape==0){
-//                    getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout_activityMain, fragmentMovieDetails).commit();
-//                    Intent intent = new Intent();
-//                    intent.setClass(getActivity(), DetailActivity.class);
-//                    intent.putExtra("movie object", movieList.get(i));
-//                    startActivity(intent);
-
-
-               // }
-
                 dataPasser.onDataPass(movieList.get(i));
 
 
