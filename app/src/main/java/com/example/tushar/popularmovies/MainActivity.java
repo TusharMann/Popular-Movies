@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements Popular_Movies_fr
             Popular_Movies_fragment fragment=new Popular_Movies_fragment();
             getSupportFragmentManager().beginTransaction().replace(R.id.mainActivity_framelayout,fragment).commit();
             counter=1;
-     
+
 
     }
 
@@ -103,6 +103,16 @@ public class MainActivity extends AppCompatActivity implements Popular_Movies_fr
             intent.setClass(this, DetailActivity.class);
             intent.putExtra("movie object", film);
             startActivity(intent);
+
+        }
+
+        else{
+            Bundle b=new Bundle();
+            b.putSerializable("selectedMovieObjectForFragment",film);
+            DetailFragment fragment=new DetailFragment();
+            fragment.setArguments(b);
+
+            getSupportFragmentManager().beginTransaction().replace(R.id.detail_activity_framelayout,fragment).commit();
 
         }
 
