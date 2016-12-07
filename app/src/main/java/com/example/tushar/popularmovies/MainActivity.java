@@ -24,15 +24,44 @@ public class MainActivity extends AppCompatActivity implements Popular_Movies_fr
 
         container1=(FrameLayout)findViewById(R.id.mainActivity_framelayout);
         container2=(FrameLayout)findViewById(R.id.detail_activity_framelayout);
-        Bundle b=new Bundle();
 
-            Popular_Movies_fragment fragment=new Popular_Movies_fragment();
-            getSupportFragmentManager().beginTransaction().replace(R.id.mainActivity_framelayout,fragment).commit();
-            counter=1;
+        if(savedInstanceState!=null){
+            counter=savedInstanceState.getInt("counter");
+            if(counter==1){
+                Popular_Movies_fragment fragment=new Popular_Movies_fragment();
+                getSupportFragmentManager().beginTransaction().replace(R.id.mainActivity_framelayout,fragment).commit();
+                setTitle("Popular Movies");
+            }
 
+            else if(counter==0){
+                Highest_Rated_fragment fragment=new Highest_Rated_fragment();
+                getSupportFragmentManager().beginTransaction().replace(R.id.mainActivity_framelayout,fragment).commit();
+                setTitle("Highest Rated Movies");
+            }
+
+            else if(counter==2){
+                Favourite_Movies fragment=new Favourite_Movies();
+                getSupportFragmentManager().beginTransaction().replace(R.id.mainActivity_framelayout,fragment).commit();
+                setTitle("Favourite Movies");
+
+            }
+
+        }
+
+        else {
+
+            Popular_Movies_fragment fragment = new Popular_Movies_fragment();
+            getSupportFragmentManager().beginTransaction().replace(R.id.mainActivity_framelayout, fragment).commit();
+            counter = 1;
+        }
 
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putInt("counter",counter);
+        super.onSaveInstanceState(outState);
+    }
 
     @Override
     public void onBackPressed() {
@@ -83,7 +112,7 @@ public class MainActivity extends AppCompatActivity implements Popular_Movies_fr
         }
 
         else if(id == R.id.favourite){
-            counter=0;
+            counter=2;
             Favourite_Movies fragment=new Favourite_Movies();
             getSupportFragmentManager().beginTransaction().replace(R.id.mainActivity_framelayout,fragment).commit();
             setTitle("Favourite Movies");
