@@ -1,6 +1,9 @@
 package com.example.tushar.popularmovies;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -8,6 +11,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements Popular_Movies_fragment.OnDataPass,Highest_Rated_fragment.OnDataPass,Favourite_Movies.OnDataPass {
 
@@ -24,37 +28,44 @@ public class MainActivity extends AppCompatActivity implements Popular_Movies_fr
 
         container1=(FrameLayout)findViewById(R.id.mainActivity_framelayout);
         container2=(FrameLayout)findViewById(R.id.detail_activity_framelayout);
+        Boolean connected=isNetworkConnected();
 
-        if(savedInstanceState!=null){
-            counter=savedInstanceState.getInt("counter");
-            if(counter==1){
-                Popular_Movies_fragment fragment=new Popular_Movies_fragment();
-                getSupportFragmentManager().beginTransaction().replace(R.id.mainActivity_framelayout,fragment).commit();
-                setTitle("Popular Movies");
+        if(connected) {
+            if (savedInstanceState != null) {
+                counter = savedInstanceState.getInt("counter");
+                if (counter == 1) {
+                    Popular_Movies_fragment fragment = new Popular_Movies_fragment();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.mainActivity_framelayout, fragment).commit();
+                    setTitle("Popular Movies");
+                } else if (counter == 0) {
+                    Highest_Rated_fragment fragment = new Highest_Rated_fragment();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.mainActivity_framelayout, fragment).commit();
+                    setTitle("Highest Rated Movies");
+                } else if (counter == 2) {
+                    Favourite_Movies fragment = new Favourite_Movies();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.mainActivity_framelayout, fragment).commit();
+                    setTitle("Favourite Movies");
+
+                }
+
+            } else {
+
+                Popular_Movies_fragment fragment = new Popular_Movies_fragment();
+                getSupportFragmentManager().beginTransaction().replace(R.id.mainActivity_framelayout, fragment).commit();
+                counter = 1;
             }
-
-            else if(counter==0){
-                Highest_Rated_fragment fragment=new Highest_Rated_fragment();
-                getSupportFragmentManager().beginTransaction().replace(R.id.mainActivity_framelayout,fragment).commit();
-                setTitle("Highest Rated Movies");
-            }
-
-            else if(counter==2){
-                Favourite_Movies fragment=new Favourite_Movies();
-                getSupportFragmentManager().beginTransaction().replace(R.id.mainActivity_framelayout,fragment).commit();
-                setTitle("Favourite Movies");
-
-            }
-
         }
 
-        else {
-
-            Popular_Movies_fragment fragment = new Popular_Movies_fragment();
-            getSupportFragmentManager().beginTransaction().replace(R.id.mainActivity_framelayout, fragment).commit();
-            counter = 1;
+        else{
+            Toast.makeText(this, "Check your internet connection", Toast.LENGTH_LONG).show();
         }
 
+    }
+
+    private boolean isNetworkConnected() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        return cm.getActiveNetworkInfo() != null;
     }
 
     @Override
@@ -67,17 +78,20 @@ public class MainActivity extends AppCompatActivity implements Popular_Movies_fr
     public void onBackPressed() {
 
         if(counter!=1) {
-            Popular_Movies_fragment fragment=new Popular_Movies_fragment();
-            getSupportFragmentManager().beginTransaction().replace(R.id.mainActivity_framelayout,fragment).commit();
+            Toast.makeText(this, "Press once again to exit", Toast.LENGTH_LONG).show();
             counter=1;
-            setTitle("Popular Movies");
-
         }
 
         else
             super.onBackPressed();
 
 
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null;
     }
 
     @Override
